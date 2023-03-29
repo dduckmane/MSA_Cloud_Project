@@ -8,6 +8,6 @@ import lombok.Data;
 public class Tokens {
 
     private String jwtToken;
-    private String refreshToken;
+    private String refreshToken; // refresh
 
 }
