@@ -1,0 +1,9 @@
+# bootstrap.yml 파일은 application.yml 파일보다 우선 순위가 높다.
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: msaProject # config 서버에서 ecommerce.yml 파일을 가져온다.
+
+  profiles:
+    active: dev
