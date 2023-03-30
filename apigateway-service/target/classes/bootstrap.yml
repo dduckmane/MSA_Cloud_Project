@@ -3,7 +3,7 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-      name: msaProject # config 서버에서 ecommerce.yml 파일을 가져온다.
+      name: msaProject # config 서버에서 ecommerce.yml 파일을 가져온다
 
   profiles:
     active: dev

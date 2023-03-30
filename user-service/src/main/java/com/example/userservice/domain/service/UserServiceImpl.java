@@ -5,12 +5,17 @@ import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.entity.UserEntity;
 import com.example.userservice.domain.repository.UserRepository;
 import com.example.userservice.common.CustomBCryPasswordEncoder;
-import com.example.userservice.web.response.ResponseOrder;
+import com.example.userservice.web.response.ResponseResume;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final CustomBCryPasswordEncoder encoder;
+    private final RestTemplate restTemplate;
+    private final Environment env;
 
     public UserDto createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
@@ -38,12 +45,20 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserByUserId(String userId) {
         UserEntity user = userRepository
                 .findByUserId(userId)
-                .orElseThrow(() -> new MemberNotFoundException("잎치하는 회원이 없습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("일치하는 회원이 없습니다."));
 
         UserDto userDto = new ModelMapper().map(user, UserDto.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        userDto.setOrders(orders);
+        // RestTemplate 사용
+        String resumeServiceUrl = env.getProperty("resume_service.url", userId);
+        ResponseEntity<List<ResponseResume>> result =
+                restTemplate.exchange(resumeServiceUrl
+                        , HttpMethod.GET
+                        , null
+                        , new ParameterizedTypeReference<List<ResponseResume>>() {});
+
+        List<ResponseResume> body = result.getBody();
+        userDto.setResponseResumes(body);
 
         return userDto;
     }

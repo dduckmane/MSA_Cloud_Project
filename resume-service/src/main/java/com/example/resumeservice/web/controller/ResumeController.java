@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/resume-service")
 @Slf4j
 @RequiredArgsConstructor
-public class OrderController {
+public class ResumeController {
     private final Environment env;
     private final ResumeService resumeService;
 
 
     @GetMapping("/health_check")
     public String status() {
-        return String.format("It's Working in Order Service on PORT %s",
+        return String.format("It's Working in Resume Service on PORT %s",
                 env.getProperty("local.server.port"));
     }
 
-    @PostMapping("/{userId}/orders")
+    @PostMapping("/{userId}/resumes")
     public ResponseEntity createOrder(
             @PathVariable("userId") String userId
             , @RequestBody RequestResume requestResume)
@@ -37,7 +37,7 @@ public class OrderController {
                 .body(resumeService.writeResume(requestResume.toDto(userId)));
     }
 
-    @GetMapping("/{userId}/orders")
+    @GetMapping("/{userId}/resumes")
     public ResponseEntity<List<ResponseResume>> getOrder(@PathVariable("userId") String userId) {
         List<ResponseResume> result = resumeService.getResumesByUserId(userId)
                 .stream().map(ResponseResume::new)

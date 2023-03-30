@@ -5,14 +5,16 @@ import lombok.Data;
 
 @Data
 public class RequestResume {
-    private String categoryId;
+    private String companyId;
+    private Integer age;
     private Integer birth;
     private Integer career;
 
     public ResumeDto toDto(String userId) {
         return ResumeDto.builder()
-                .companyId(categoryId)
+                .companyId(companyId)
                 .birth(birth)
+                .age(age)
                 .career(career)
                 .userId(userId)
                 .build();

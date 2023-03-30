@@ -15,11 +15,11 @@ spring:
       settings:
         web-allow-others: true # 외부에서 접근이 가능하게 한다.
       path: /h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/msa_db
-    username: sa
-    password:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:tcp://localhost/~/msa_db
+#    username: sa
+#    password:
   redis:
     host: localhost
     port: 6379
@@ -46,5 +46,5 @@ management:
       exposure:
         include: refresh, health, beans, busrefresh
 
-
-
+resume_service:
+  url: http://localhost:8000/resume-service/%s/resumes

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.userservice.common.exception.TokenNotFoundException;
 import com.example.userservice.common.auth.PrincipalDetails;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,9 +61,9 @@ public class TokenUtils {
     private Date getLifeTime(TokenType type) {
         switch(type){
             case refresh:
-                return new Date(System.currentTimeMillis() + (Integer.valueOf(EXP_TIME_JWT)));
+                return new Date(System.currentTimeMillis() + (Integer.valueOf(EXP_TIME_REFRESH)));
             case access:
-                return new Date(System.currentTimeMillis() + (Integer.valueOf(EXP_TIME_REFRESH))); // 60000 * 10 : 10분
+                return new Date(System.currentTimeMillis() + Integer.valueOf(EXP_TIME_JWT)); // 60000 * 10 : 10분
         }
         return null;
     }

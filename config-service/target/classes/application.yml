@@ -14,7 +14,6 @@ spring:
     config:
       server:
         git:
-#          uri: file://Users/minsungkim/IdeaProjects/git-local-repo
           uri: https://github.com/dduckmane/git-local-repo.git
 #          username:
 #          password:

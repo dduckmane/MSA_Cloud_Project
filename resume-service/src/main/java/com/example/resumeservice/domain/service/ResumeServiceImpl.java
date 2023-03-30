@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements ResumeService {
+public class ResumeServiceImpl implements ResumeService {
     private final ResumeRepository resumeRepository;
 
     @Override
@@ -22,7 +22,8 @@ public class OrderServiceImpl implements ResumeService {
 
         Resume resume = Resume.builder()
                 .career(resumeDto.getCareer())
-                .age(resumeDto.getBirth())
+                .birth(resumeDto.getBirth())
+                .age(resumeDto.getAge())
                 .companyId(resumeDto.getCompanyId())
                 .userId(resumeDto.getUserId())
                 .resumeId(resumeDto.getResumeId())

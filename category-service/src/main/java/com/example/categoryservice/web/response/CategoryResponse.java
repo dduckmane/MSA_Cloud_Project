@@ -11,15 +11,13 @@ import java.util.Date;
 public class CategoryResponse {
     private String companyId;
     private String companyName;
-    private Integer Income;
-    private Integer Day;
-    private Date createdAt;
+    private Integer income;
+    private Integer NumberWorkingDay;
 
     public CategoryResponse(Category category) {
         this.companyId = category.getCompanyId();
         this.companyName = category.getCompanyName();
-        Income = category.getIncome();
-        Day = category.getNumberWorkingDay();
-        this.createdAt = category.getCreatedAt();
+        this.income = category.getIncome();
+        this.NumberWorkingDay = category.getNumberWorkingDay();
     }
 }

@@ -1,6 +1,6 @@
 package com.example.userservice.domain.dto;
 
-import com.example.userservice.web.response.ResponseOrder;
+import com.example.userservice.web.response.ResponseResume;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,5 +14,5 @@ public class UserDto {
     private String userId;
     private Date createdAt;
     private String encryptedPwd;
-    private List<ResponseOrder> orders;
+    private List<ResponseResume> responseResumes;
 }
