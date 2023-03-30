@@ -24,12 +24,18 @@ public class Category {
     private Integer Income;
     @Column(nullable = false)
     private Integer NumberWorkingDay;
+    private Integer volunteerCnt;
 
     @Builder
     public Category(String companyId, String companyName, Integer income, Integer numberWorkingDay) {
         this.companyId = companyId;
         this.companyName = companyName;
-        Income = income;
-        NumberWorkingDay = numberWorkingDay;
+        this.Income = income;
+        this.NumberWorkingDay = numberWorkingDay;
+        this.volunteerCnt = 0;
+    }
+
+    public void plusVolunteerCnt() {
+        volunteerCnt ++;
     }
 }

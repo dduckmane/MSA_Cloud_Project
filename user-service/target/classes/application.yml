@@ -46,5 +46,10 @@ management:
       exposure:
         include: refresh, health, beans, busrefresh
 
+
 #resume_service:
+logging:
+  level:
+    com.example.userservice.web.feignclient: DEBUG
+
 #  url: http://RESUME-SERVICE/resume-service/%s/resumes # api gateway 를 통해서 이름으로 매핑

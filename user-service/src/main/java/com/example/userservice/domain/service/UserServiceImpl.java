@@ -5,6 +5,7 @@ import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.entity.UserEntity;
 import com.example.userservice.domain.repository.UserRepository;
 import com.example.userservice.common.CustomBCryPasswordEncoder;
+import com.example.userservice.web.FeignErrorDecoder;
 import com.example.userservice.web.feignclient.ResumeServiceClient;
 import com.example.userservice.web.response.ResponseResume;
 import lombok.RequiredArgsConstructor;
