@@ -19,7 +19,7 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     generate-ddl: true
     database: h2

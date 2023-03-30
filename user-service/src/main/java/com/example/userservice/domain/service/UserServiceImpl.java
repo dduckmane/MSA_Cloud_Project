@@ -5,6 +5,7 @@ import com.example.userservice.domain.dto.UserDto;
 import com.example.userservice.domain.entity.UserEntity;
 import com.example.userservice.domain.repository.UserRepository;
 import com.example.userservice.common.CustomBCryPasswordEncoder;
+import com.example.userservice.web.feignclient.ResumeServiceClient;
 import com.example.userservice.web.response.ResponseResume;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,8 +27,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final CustomBCryPasswordEncoder encoder;
-    private final RestTemplate restTemplate;
     private final Environment env;
+    private final ResumeServiceClient resumeServiceClient;
 
     public UserDto createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
@@ -49,17 +50,18 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new ModelMapper().map(user, UserDto.class);
 
-        // RestTemplate 사용
-        String resumeServiceUrl = env.getProperty("resume_service.url", userId);
-        ResponseEntity<List<ResponseResume>> result =
-                restTemplate.exchange(resumeServiceUrl
-                        , HttpMethod.GET
-                        , null
-                        , new ParameterizedTypeReference<List<ResponseResume>>() {});
+//        // RestTemplate 사용
+//        String resumeServiceUrl = env.getProperty("resume_service.url", userId);
+//        ResponseEntity<List<ResponseResume>> result =
+//                restTemplate.exchange(resumeServiceUrl
+//                        , HttpMethod.GET
+//                        , null
+//                        , new ParameterizedTypeReference<List<ResponseResume>>() {});
 
-        List<ResponseResume> body = result.getBody();
-        userDto.setResponseResumes(body);
+        // Feign Client
+        List<ResponseResume> resumes = resumeServiceClient.getResume(userId);
 
+        userDto.setResponseResumes(resumes);
         return userDto;
     }
 

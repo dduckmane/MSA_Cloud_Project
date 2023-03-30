@@ -46,5 +46,5 @@ management:
       exposure:
         include: refresh, health, beans, busrefresh
 
-resume_service:
-  url: http://localhost:8000/resume-service/%s/resumes
+#resume_service:
+#  url: http://RESUME-SERVICE/resume-service/%s/resumes # api gateway 를 통해서 이름으로 매핑
