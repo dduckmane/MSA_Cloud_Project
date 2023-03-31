@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ResumeService {
-    Long writeResume(ResumeDto resumeDto);
+    String writeResume(ResumeDto resumeDto);
     ResumeDto getResumeById(String resumeId);
     List<ResumeDto> getResumesByUserId(String userId);
 }

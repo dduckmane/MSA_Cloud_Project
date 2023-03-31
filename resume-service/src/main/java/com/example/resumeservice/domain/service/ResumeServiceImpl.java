@@ -1,23 +1,28 @@
 package com.example.resumeservice.domain.service;
 
+import com.example.resumeservice.common.messagequeue.KafkaProducer;
+import com.example.resumeservice.common.messagequeue.ResumeProducer;
 import com.example.resumeservice.domain.dto.ResumeDto;
 import com.example.resumeservice.domain.entity.Resume;
 import com.example.resumeservice.domain.repository.ResumeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ResumeServiceImpl implements ResumeService {
     private final ResumeRepository resumeRepository;
+    private final KafkaProducer kafkaProducer;
+    private final ResumeProducer resumeProducer;
 
     @Override
-    public Long writeResume(ResumeDto resumeDto) {
+    public String writeResume(ResumeDto resumeDto) {
         resumeDto.setResumeId(UUID.randomUUID().toString());
 
         Resume resume = Resume.builder()
@@ -29,9 +34,14 @@ public class ResumeServiceImpl implements ResumeService {
                 .resumeId(resumeDto.getResumeId())
                 .build();
 
-        Resume saveResume = resumeRepository.save(resume);
+////        //jpa
+////        Resume saveResume = resumeRepository.save(resume);
 
-        return saveResume.getId();
+        //kafka
+        kafkaProducer.send("category-topic", resumeDto);
+        resumeProducer.send("resume",resumeDto);
+
+        return resume.getResumeId();
     }
 
     @Override

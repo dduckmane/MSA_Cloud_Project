@@ -3,6 +3,7 @@ package com.example.resumeservice.domain.entity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -10,15 +11,16 @@ import org.hibernate.annotations.ColumnDefault;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+@Getter
 @Entity
 @NoArgsConstructor
+
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120, unique = true)
+    @Column(nullable = false, length = 120, name = "company_id")
     private String companyId;
     @Column(nullable = false)
     private Integer age;

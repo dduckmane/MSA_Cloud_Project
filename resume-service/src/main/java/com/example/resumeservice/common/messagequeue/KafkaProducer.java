@@ -27,6 +27,9 @@ public class KafkaProducer {
             e.printStackTrace();
         }
 
+        kafkaTemplate.send(topic, jsonInString);
+        log.info("Kafka 를 통한 데이터 전송" + resumeDto);
 
+        return resumeDto;
     }
 }
