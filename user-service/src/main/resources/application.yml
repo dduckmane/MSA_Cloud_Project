@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: user-service # 유레카에 이 이름으로 등록된다.
+
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0 # 100프로의 빈도로 전달하겠다.
+
   rabbitmq:
     host: 127.0.0.1
     port: 5672

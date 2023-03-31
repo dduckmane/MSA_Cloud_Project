@@ -11,6 +11,8 @@ import com.example.userservice.web.response.ResponseResume;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final CustomBCryPasswordEncoder encoder;
     private final Environment env;
     private final ResumeServiceClient resumeServiceClient;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     public UserDto createUser(UserDto userDto) {
         userDto.setUserId(UUID.randomUUID().toString());
@@ -60,7 +63,14 @@ public class UserServiceImpl implements UserService {
 //                        , new ParameterizedTypeReference<List<ResponseResume>>() {});
 
         // Feign Client
-        List<ResponseResume> resumes = resumeServiceClient.getResume(userId);
+//        List<ResponseResume> resumes = resumeServiceClient.getResume(userId);
+
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+        // run method 안에 있는 메서드에 circuitBreaker 가 적용이 된다.
+        // 그 후에 그 코드에 문제가 생겨서 circuitBreaker 가 작동을 한다면 어떤 값을 반환할 지 알려준다.
+        List<ResponseResume> resumes
+                = circuitBreaker.run(() -> resumeServiceClient.getResume(userId)
+                , throwable -> new ArrayList<>());
 
         userDto.setResponseResumes(resumes);
         return userDto;
