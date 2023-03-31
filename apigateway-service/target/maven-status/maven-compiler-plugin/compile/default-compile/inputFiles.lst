@@ -1,0 +1,9 @@
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/domain/repository/MemberRedisRepository.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/common/filter/CustomFilter.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/domain/entity/RedisMember.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/common/filter/GlobalFilter.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/common/filter/LoggingFilter.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/ApigatewayServiceApplication.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/config/RedisConfig.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/config/FilterConfig.java
+/Users/minsungkim/IdeaProjects/MSA-project/apigateway-service/src/main/java/com/example/apigatewayservice/common/filter/AuthorizationHeaderFilter.java
