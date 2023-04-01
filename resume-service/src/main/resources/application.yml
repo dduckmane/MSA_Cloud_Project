@@ -5,6 +5,13 @@ spring:
   application:
     name: resume-service
 
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0 # 100프로의 빈도로 전달하겠다.
+
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/mydb
@@ -50,3 +57,9 @@ eureka:
 logging:
   level:
     com.example.orderservice: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus

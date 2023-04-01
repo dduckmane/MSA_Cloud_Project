@@ -39,6 +39,7 @@ public class ResumeController {
 
     @GetMapping("/{userId}/resumes")
     public ResponseEntity<List<ResponseResume>> getOrder(@PathVariable("userId") String userId) {
+        log.info("user-service 에서 resume-service 에 /{userId}/resumes 호출");
         List<ResponseResume> result = resumeService.getResumesByUserId(userId)
                 .stream().map(ResponseResume::new)
                 .collect(Collectors.toList());

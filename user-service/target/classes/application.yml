@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: user-service # 유레카에 이 이름으로 등록된다.
+
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -25,7 +30,7 @@ spring:
     port: 6379
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
 
 eureka:
@@ -44,8 +49,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh
-
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
 
 #resume_service:
 logging:

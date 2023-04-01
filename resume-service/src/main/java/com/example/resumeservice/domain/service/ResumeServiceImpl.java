@@ -6,6 +6,7 @@ import com.example.resumeservice.domain.dto.ResumeDto;
 import com.example.resumeservice.domain.entity.Resume;
 import com.example.resumeservice.domain.repository.ResumeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class ResumeServiceImpl implements ResumeService {
     private final ResumeRepository resumeRepository;
     private final KafkaProducer kafkaProducer;
@@ -38,7 +40,10 @@ public class ResumeServiceImpl implements ResumeService {
 ////        Resume saveResume = resumeRepository.save(resume);
 
         //kafka
+        log.info("resume 서비스에서 category 서비스 호출 전");
         kafkaProducer.send("category-topic", resumeDto);
+        log.info("resume 서비스에서 category 서비스 호출 후");
+
         resumeProducer.send("resume",resumeDto);
 
         return resume.getResumeId();

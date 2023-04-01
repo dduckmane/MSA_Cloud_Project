@@ -9,6 +9,7 @@ import com.example.userservice.web.FeignErrorDecoder;
 import com.example.userservice.web.feignclient.ResumeServiceClient;
 import com.example.userservice.web.response.ResponseResume;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final CustomBCryPasswordEncoder encoder;
@@ -65,12 +69,14 @@ public class UserServiceImpl implements UserService {
         // Feign Client
 //        List<ResponseResume> resumes = resumeServiceClient.getResume(userId);
 
+        log.info("user 서비스에서 order 서비스 호출 전");
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
         // run method 안에 있는 메서드에 circuitBreaker 가 적용이 된다.
         // 그 후에 그 코드에 문제가 생겨서 circuitBreaker 가 작동을 한다면 어떤 값을 반환할 지 알려준다.
         List<ResponseResume> resumes
                 = circuitBreaker.run(() -> resumeServiceClient.getResume(userId)
                 , throwable -> new ArrayList<>());
+        log.info("user 서비스에서 order 서비스 호출 후");
 
         userDto.setResponseResumes(resumes);
         return userDto;

@@ -1,11 +1,14 @@
 package com.example.userservice.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +22,18 @@ public class UserEntity {
     @Column(nullable = false,unique = true)
     private String encryptedPwd;
     private String role;
+
+    @Builder
+    public UserEntity(String email
+            , String name
+            , String userId
+            , String encryptedPwd
+            , String role
+    ) {
+        this.email = email;
+        this.name = name;
+        this.userId = userId;
+        this.encryptedPwd = encryptedPwd;
+        this.role = role;
+    }
 }

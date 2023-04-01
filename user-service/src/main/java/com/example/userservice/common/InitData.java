@@ -1,8 +1,7 @@
-package com.example.categoryservice.common;
+package com.example.userservice.common;
 
-import com.example.categoryservice.domain.entity.Category;
+import com.example.userservice.domain.entity.UserEntity;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.Column;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,30 +23,31 @@ public class InitData {
     @RequiredArgsConstructor
     static class InitService {
         private final EntityManager em;
+        private final CustomBCryPasswordEncoder encoder;
 
         public void createCategory() {
-            Category category1 = Category.builder()
-                    .income(3400)
-                    .companyName("회사1")
-                    .companyId("C_01")
-                    .numberWorkingDay(5)
+            UserEntity user1 = UserEntity.builder()
+                    .email("kms199719@naver.com")
+                    .name("김민성")
+                    .encryptedPwd(encoder.encode("password"))
+                    .userId("kms199711")
                     .build();
-            Category category2 = Category.builder()
-                    .income(4400)
-                    .companyName("회사2")
-                    .companyId("C_02")
-                    .numberWorkingDay(3)
+            UserEntity user2 = UserEntity.builder()
+                    .email("kms199711@naver.com")
+                    .name("김민수")
+                    .encryptedPwd(encoder.encode("password"))
+                    .userId("msk1234")
                     .build();
-            Category category3 = Category.builder()
-                    .income(5400)
-                    .companyName("회사3")
-                    .companyId("C_03")
-                    .numberWorkingDay(4)
+            UserEntity user3 = UserEntity.builder()
+                    .email("kms199712@naver.com")
+                    .name("김선주")
+                    .encryptedPwd(encoder.encode("password"))
+                    .userId("ksj1234")
                     .build();
 
-            em.persist(category1);
-            em.persist(category2);
-            em.persist(category3);
+            em.persist(user1);
+            em.persist(user2);
+            em.persist(user3);
         }
     }
 }

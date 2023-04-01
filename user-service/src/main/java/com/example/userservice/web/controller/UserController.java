@@ -6,6 +6,7 @@ import com.example.userservice.domain.service.UserService;
 import com.example.userservice.common.vo.Greeting;
 import com.example.userservice.web.request.RequestUser;
 import com.example.userservice.web.response.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -26,6 +27,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/health_check")
+    @Timed(value = "users.status", longTask = true)
+    // @Timed : micrometer 에서 지원하는 기능으로 metrics 로 지정이 되며 이벤트를 기록 -> prometheus 를 통해서 확인이 가능
     public String status() {
         return String.format("user-service 정보" +
                 ", local port = " + env.getProperty("local.server.port") +
@@ -37,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
+    @Timed(value = "users.welcome", longTask = true)
     public String welcome() {
         return greeting.getMessage();
     }
