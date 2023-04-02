@@ -1,0 +1,10 @@
+docker run -d --network resume-network \
+  --name user-service \
+ -e "spring.cloud.config.uri=http://13.238.38.158:8888" \
+ -e "spring.rabbitmq.host=http://13.238.38.158:5672" \
+ -e "spring.zipkin.base-url=http://zipkin:9411" \
+ -e "eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/" \
+ -e  spring.redis.host=redis \
+ -e  spring.redis.port=6379 \
+ -e "logging.file=/api-logs/users-ws.log" \
+ kms199711/user-service:1.0

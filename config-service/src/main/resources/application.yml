@@ -15,7 +15,7 @@ spring:
       server:
         git:
           uri: https://github.com/dduckmane/git-local-repo.git
-#          username:
+#          username: private 시에는 입력
 #          password:
 
 management:

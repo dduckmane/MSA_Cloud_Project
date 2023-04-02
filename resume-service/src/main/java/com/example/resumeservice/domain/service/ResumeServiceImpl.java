@@ -36,16 +36,13 @@ public class ResumeServiceImpl implements ResumeService {
                 .resumeId(resumeDto.getResumeId())
                 .build();
 
-////        //jpa
-////        Resume saveResume = resumeRepository.save(resume);
+        //jpa
+        resumeRepository.save(resume);
+        // kafka
+//        resumeProducer.send("resume",resumeDto);
 
         //kafka
-        log.info("resume 서비스에서 category 서비스 호출 전");
         kafkaProducer.send("category-topic", resumeDto);
-        log.info("resume 서비스에서 category 서비스 호출 후");
-
-        resumeProducer.send("resume",resumeDto);
-
         return resume.getResumeId();
     }
 
