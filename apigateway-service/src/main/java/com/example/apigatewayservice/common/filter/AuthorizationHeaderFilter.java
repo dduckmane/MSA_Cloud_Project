@@ -45,7 +45,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
-            if (!request.getURI().getPath().contains("docker build --platform amd64 -t kms199711/discovery-service_linux:1.1 .\n/actuator/")) {
+            if (!request.getURI().getPath().contains("/actuator")) {
 
                 String jwtHeader=request.getHeaders().get(AUTHORIZATION).get(0);
 

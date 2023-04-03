@@ -16,14 +16,14 @@ public class Resilience4jConfig {
     @Bean
     public Customizer<Resilience4JCircuitBreakerFactory> globalCustomConfiguration() {
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
-                .failureRateThreshold(4)
-                .waitDurationInOpenState(Duration.ofMillis(1000))
+                .failureRateThreshold(5)
+                .waitDurationInOpenState(Duration.ofMillis(1200))
                 .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
-                .slidingWindowSize(2)
+                .slidingWindowSize(3)
                 .build();
 
         TimeLimiterConfig timeLimiterConfig = TimeLimiterConfig.custom()
-                .timeoutDuration(Duration.ofSeconds(4))
+                .timeoutDuration(Duration.ofSeconds(5))
                 .build();
 
 

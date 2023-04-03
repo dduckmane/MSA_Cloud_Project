@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     .orElse(null);
 
             if(findRedisMember==null) {
-                //4. redis 의 집어넣기
+                //4. redis 에 저장
                 memberRepository.save(new RedisMember(loginMember.getRole(),loginMember.getEmail()));
             }
 

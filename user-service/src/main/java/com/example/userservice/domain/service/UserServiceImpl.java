@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         log.info("user 서비스에서 order 서비스 호출 전");
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
         // run method 안에 있는 메서드에 circuitBreaker 가 적용이 된다.
-        // 그 후에 그 코드에 문제가 생겨서 circuitBreaker 가 작동을 한다면 어떤 값을 반환할 지 알려준다.
+        // 그 후에 그 장애 발생 시 circuitBreaker 가 작동을 한다면 어떤 값을 반환할 지 알려준다.
         List<ResponseResume> resumes
                 = circuitBreaker.run(() -> resumeServiceClient.getResume(userId)
                 , throwable -> new ArrayList<>());

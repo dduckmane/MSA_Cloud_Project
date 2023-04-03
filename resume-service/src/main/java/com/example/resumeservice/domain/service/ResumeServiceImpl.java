@@ -37,9 +37,9 @@ public class ResumeServiceImpl implements ResumeService {
                 .build();
 
         //jpa
-        resumeRepository.save(resume);
+//        resumeRepository.save(resume);
         // kafka
-//        resumeProducer.send("resume",resumeDto);
+        resumeProducer.send("resume",resumeDto);
 
         //kafka
         kafkaProducer.send("category-topic", resumeDto);
