@@ -34,6 +34,6 @@
 - Resilience4j를 이용한 Feign Client 연쇄 오류 방지
 - Kafka 를 이용한 데이터 동기화
 - Docker 이용하여 배포 Prometheus & Grafana를 이용한 모니터링
-- 상세 링크 : https://torpid-whale-218.notion.site/Cloud-Native-Architecture-725529c6282c4aa6bab2f4ea7f0f344b
+- 상세 링크 : https://torpid-whale-218.notion.site/Cloud-Native-Architecture-e419afcbe38843c29da1295919e25ec1
 
 
