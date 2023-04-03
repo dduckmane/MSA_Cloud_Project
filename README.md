@@ -9,7 +9,7 @@
 
 ## Architecture (아키텍쳐 구성)
 
-![Unknown](https://user-images.githubusercontent.com/108928206/229410860-b09434dc-ec2b-47f7-8126-6b6b7f726ed9.png)
+![Component 1-2](https://user-images.githubusercontent.com/108928206/229526520-56067ee4-d1dc-47e1-a689-97046013a300.png)
 
 ## Application Structure
 
